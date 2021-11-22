@@ -1,19 +1,24 @@
 import turtle
+from os import path
+import os
+currentDir = path.abspath(path.curdir)
 
 wn=turtle.Screen() # create screen
 wn.bgcolor("black") # set background color of the screen
 wn.title("ball")
 #wn.tracer(0)
-
+#wn.addshape(currentDir+"\\image.jpeg")
 ball=turtle.Turtle() #create turtle object
 ball.shape("circle")       # set the object as ball
-ball.color("yellow")        #set ball color
+ball.color("yellow")
+#myImage.shape(currentDir+"\\image.jpeg")        #set ball color
 ball.penup()  # removes the tracing line
 ball.speed(0)  # set speed of the ball
 ball.goto(0,300)        # dropping ball from position 300
 gravity=0.1  
 ball.dy=0
 ball.dx=2
+print(type(wn))
 while True:
     try:
         ball.dy -= gravity
@@ -35,3 +40,5 @@ while True:
     except KeyboardInterrupt:
         print("program stopped")
         break
+
+wn.mainloop()
