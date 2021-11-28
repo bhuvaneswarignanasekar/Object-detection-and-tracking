@@ -4,9 +4,12 @@ import numpy as np
 img = np.zeros((480,640,3),dtype='uint8')
 dx,dy =1,1
 x,y = 100,100
-while True:
+num_frames=1000
+ith_frame=0
+videofile=cv2.VideoWriter('project_bb.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
+while ith_frame<num_frames:
+    ith_frame+=1
     # display frame
-    cv2.imshow('bouncing_ball',img)
     k = cv2.waitKey(10)
     img = np.zeros((480,640,3),dtype='uint8') 
 
@@ -30,4 +33,6 @@ while True:
         dx *= -1
     elif x<=0:
         dx *= -1
+    cv2.imshow('bouncing_ball',img)
+    videofile.write(img)
 cv2.destroyAllWindows()
