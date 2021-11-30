@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import imutils
+import json
 fgbg = cv2.createBackgroundSubtractorMOG2(); 
 kernel_dil=np.ones((20,20),dtype='uint8')
 kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
@@ -45,6 +46,8 @@ while cap.isOpened():
 
     else:   
         break
+with open('measurements.txt' , 'w') as f:
+    json.dump(sensor_measurement,f)
 print(len(sensor_measurement))
 cap.release()
 cv2.destroyAllWindows()
