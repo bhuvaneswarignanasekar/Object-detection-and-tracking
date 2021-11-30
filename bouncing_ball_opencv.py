@@ -6,7 +6,7 @@ dx,dy =1,1
 x,y = 100,100
 num_frames=1000
 ith_frame=0
-videofile=cv2.VideoWriter('project_bb.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
+videofile=cv2.VideoWriter('project_bb_occlusion.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
 while ith_frame<num_frames:
     ith_frame+=1
     # display frame
@@ -21,7 +21,8 @@ while ith_frame<num_frames:
     cv2.circle(img,(x,y),20,(255,0,0),-1)
     if k != -1:
         break
-
+    
+    cv2.rectangle(img,(200,200),(400,400),(255,0,0),-1)
     # change y axis
     if y >=480:
         dy *= -1
