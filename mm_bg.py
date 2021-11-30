@@ -4,9 +4,9 @@ import imutils
 fgbg = cv2.createBackgroundSubtractorMOG2(); 
 kernel_dil=np.ones((20,20),dtype='uint8')
 kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
-cap=cv2.VideoCapture("/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb.avi")
-cap.open('/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb.avi')
-videofile=cv2.VideoWriter('bg_subs_trajectory.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
+cap=cv2.VideoCapture("/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi")
+cap.open('/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi')
+videofile=cv2.VideoWriter('bg_subs_trajectory_occlusion.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
 
 if cap.isOpened==False:
     print("Error opening")
@@ -33,6 +33,8 @@ while cap.isOpened():
                 cv2.circle(frame, centroid, 5, (0, 0, 255), -1)
             sensor_measurement.append(centroid)
             count+=1
+        else:
+            sensor_measurement.append((-1,-1))
 	    # loop over the set of tracked points
         for i in range(2, len(sensor_measurement)):
             if sensor_measurement[i - 1] is None or sensor_measurement[i] is None:
