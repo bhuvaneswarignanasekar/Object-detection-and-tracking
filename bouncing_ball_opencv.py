@@ -22,7 +22,7 @@ while ith_frame<num_frames:
     if k != -1:
         break
     
-    cv2.rectangle(img,(300,300),(600,400),(255,0,0),-1)
+    cv2.rectangle(img,(300,100),(550,400),(255,0,0),-1)
     # change y axis
     if y >=480:
         dy *= -1
