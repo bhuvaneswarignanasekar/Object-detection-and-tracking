@@ -22,8 +22,8 @@ vxinit=MaskedMeasurements[1,0]-MaskedMeasurements[0,0]
 vyinit=MaskedMeasurements[1,1]-MaskedMeasurements[0,1]
 initstate=[xinit,yinit,vxinit,vyinit]
 initcovariance=1.0e-1*np.eye(4)
-transistionCov=3.0e-8*np.eye(4)
-observationCov=1.0e-1*np.eye(2)
+transistionCov=5e-10*np.eye(4)
+observationCov=3.5e-4*np.eye(2)
 kf=KalmanFilter(transition_matrices=Transition_Matrix,
             observation_matrices =Observation_Matrix,
             initial_state_mean=initstate,
@@ -35,6 +35,7 @@ print(filtered_state_means.shape)
 a= filtered_state_means[:,:2]
 print(a.shape)
 kf_list=a.tolist()
+videofile=cv2.VideoWriter('kalman_filter_trajectory_occlusion.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
 # print(kf_list)
 cap=cv2.VideoCapture("/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi")
 cap.open('/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi')
@@ -50,6 +51,7 @@ while cap.isOpened():
             cv2.line(frame, (int(kf_list[i - 1][0]),int(kf_list[i - 1][1])), (int(kf_list[i][0]),int(kf_list[i][1])),  (0, 0, 255), 2)
         print(kf_list[count][0],kf_list[count][1])
         cv2.imshow('bouding box',frame)
+        videofile.write(frame)
         if cv2.waitKey(25)&0xFF==ord('q'):
             break
         count+=1
