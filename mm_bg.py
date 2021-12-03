@@ -5,9 +5,9 @@ import json
 fgbg = cv2.createBackgroundSubtractorMOG2(); 
 kernel_dil=np.ones((20,20),dtype='uint8')
 kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
-cap=cv2.VideoCapture("/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi")
-cap.open('/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi')
-videofile=cv2.VideoWriter('bg_subs_trajectory_occlusion.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
+cap=cv2.VideoCapture("/Users/bhuvaneswarignanasekar/workspace/python-workshapce/Object-detection-and-tracking/romba2.mp4")
+cap.open('/Users/bhuvaneswarignanasekar/workspace/python-workshapce/Object-detection-and-tracking/romba2.mp4')
+videofile=cv2.VideoWriter('bg_subs_trajectory_occlusion_romba2.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
 
 if cap.isOpened==False:
     print("Error opening")
@@ -46,7 +46,7 @@ while cap.isOpened():
 
     else:   
         break
-with open('measurements.txt' , 'w') as f:
+with open('measurements_romba2.txt' , 'w') as f:
     json.dump(sensor_measurement,f)
 print(len(sensor_measurement))
 cap.release()

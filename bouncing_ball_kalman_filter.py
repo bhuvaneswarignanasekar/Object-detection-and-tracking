@@ -4,7 +4,7 @@ import imutils
 import json
 from pykalman import KalmanFilter
 
-with open('measurements.txt', 'r') as f:
+with open('measurements_romba2.txt', 'r') as f:
     b=json.load(f)
 print(b)
 measurements=np.array(b)
@@ -37,25 +37,27 @@ print(a.shape)
 kf_list=a.tolist()
 videofile=cv2.VideoWriter('kalman_filter_trajectory_occlusion.avi',cv2.VideoWriter_fourcc(*'XVID'), 25, (640,480))
 # print(kf_list)
-cap=cv2.VideoCapture("/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi")
-cap.open('/Users/apoorvgarg/Documents/ms/1-1/cv/project/Object-detection-and-tracking/project_bb_occlusion.avi')
+cap=cv2.VideoCapture("/Users/bhuvaneswarignanasekar/workspace/python-workshapce/Object-detection-and-tracking/romba2.mp4")
+cap.open('/Users/bhuvaneswarignanasekar/workspace/python-workshapce/Object-detection-and-tracking/romba2.mp4')
 if cap.isOpened==False:
     print("Error opening")
 count=0
 while cap.isOpened():
     ret,frame=cap.read()
     if ret==True:
-        for i in range(2,count+1):
-            if kf_list[i - 1] is None or kf_list[i] is None:
-                continue
-            cv2.line(frame, (int(kf_list[i - 1][0]),int(kf_list[i - 1][1])), (int(kf_list[i][0]),int(kf_list[i][1])),  (0, 0, 255), 2)
-        print(kf_list[count][0],kf_list[count][1])
+        try:
+            for i in range(2,count+1):
+                if kf_list[i - 1] is None or kf_list[i] is None:
+                    continue
+                cv2.line(frame, (int(kf_list[i - 1][0]),int(kf_list[i - 1][1])), (int(kf_list[i][0]),int(kf_list[i][1])),  (0, 0, 255), 2)
+            print(kf_list[count][0],kf_list[count][1])
+        except IndexError:
+            break
         cv2.imshow('bouding box',frame)
         videofile.write(frame)
         if cv2.waitKey(25)&0xFF==ord('q'):
             break
         count+=1
         print(count)
-
 
 
