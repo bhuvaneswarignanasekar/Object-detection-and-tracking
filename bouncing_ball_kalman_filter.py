@@ -9,6 +9,10 @@ with open('measurements.txt', 'r') as f:
 print(b)
 measurements=np.array(b)
 measurements=np.delete(measurements,0,0)
+counter=0
+while measurements[0,0]==-1:
+    counter+=1
+    measurements=np.delete(measurements,0,0)
 print(measurements[0,0],measurements[0,1],measurements[1,0],measurements[1,1])    
 print(measurements.shape)
 MaskedMeasurements=np.ma.masked_less(measurements,0)
@@ -44,6 +48,10 @@ if cap.isOpened==False:
 count=0
 while cap.isOpened():
     ret,frame=cap.read()
+    if counter>0:
+        counter-=1
+        cv2.imshow('bouding box',frame)
+        continue
     if ret==True:
         for i in range(2,count+1):
             if kf_list[i - 1] is None or kf_list[i] is None:
